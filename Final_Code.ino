@@ -57,7 +57,12 @@ void drawImage(const uint16_t *image, int16_t width, int16_t height, int16_t x, 
 }
 
 void writeTDS() {
-  float newTdsValue = GetTDS();
+  // Remove bias
+  float newTdsValue = GetTDS() - 5;
+
+  if (newTdsValue < 0) {
+    newTdsValue = 0;
+  }
   
   String oldValueStr = String(tdsvalue, 1);
   String newValueStr = String(newTdsValue, 1);
